@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>router的基本使用</title>
+    <script src="./lib/vue.js"></script>
+    <script src="./lib/vue-router.js"></script>
+    <style>
+        .router-link-active,
+        .myclass {
+            font-weight: 200;
+            color: red;
+            font-style: italic;
+        }
+
+        .v-enter,
+        .v-leave-to {
+            opacity: 0;
+            transform: translateX(80px);
+        }
+
+        .v-enter-active,
+        .v-leave-active {
+            transition: all 0.4s ease;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="app">
+        <!-- <a href="#/login">登录</a>
+        <a href="#/register">注册</a> -->
+        <router-link to="/login">登录</router-link>
+        <router-link to="/register">注册</router-link>
+        <transition mode="out-in">
+            <router-view></router-view>
+        </transition>
+    </div>
+
+    <script>
+        var login = {
+            template: "<h2>用户登录</h2>"
+        }
+        var register = {
+            template: "<h2>用户注册</h2>"
+        }
+        // 创建路由对象
+        var routerObj = new VueRouter({
+            routes: [   //路由匹配规则
+                // path 表示路由 表示监听哪个路由链接地址
+                // component 表示根据path 展示对应组件
+                // { path: '/', component: login },
+                { path: '/', redirect: '/login' },
+                { path: '/login', component: login },
+                { path: '/register', component: register }
+            ],
+            linkActiveClass: "myclass"
+        })
+        // 创建Vue实例,得到 ViewModel
+        var vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {},
+            router: routerObj   //将路由对象注册到vm实例中
+        });
+    </script>
+
+</body>
+
+</html>

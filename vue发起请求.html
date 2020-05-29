@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue发起请求</title>
+    <script src="./lib/vue.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="button" value="get请求" @click="getInfo">
+        <input type="button" value="post请求" @click="postInfo">
+    </div>
+    <script>
+        var vm2 = new Vue({
+            el: "#app",
+            data: {},
+            methods: {
+                getInfo() {
+                    axios
+                        .get("http://jsonplaceholder.typicode.com/users")
+                        .then(result => {
+                            console.log(result);
+                        })
+                },
+                postInfo() {
+                    axios
+                        .post('http://jsonplaceholder.typicode.com/users', {
+                            id: 1
+                        })
+                        .then(result => {
+                            console.log(result)
+                        })
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

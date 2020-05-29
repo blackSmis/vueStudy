@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Router经典布局</title>
+    <script src="./lib/vue.js"></script>
+    <script src="./lib/vue-router.js"></script>
+    <style>
+        html,body,h3{
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+        }
+
+        .header {
+            height: 60px;
+            background-color: red;
+        }
+
+        .left {
+            height: 400px;
+            background-color: green;
+            flex: 2;
+        }
+
+        .main {
+            height: 400px;
+            background-color: blue;
+            flex: 8;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <router-view></router-view>
+        <div class="container">
+            <router-view name="left"></router-view>
+            <router-view name="main"></router-view>
+        </div>
+    </div>
+
+    <script>
+        var header = {
+            template: "<h3 class='header'>header头部区域</h3>"
+        }
+        var leftBox = {
+            template: "<h3 class='left'>left区域</h3>"
+        }
+        var mainBox = {
+            template: "<h3 class='main'>main区域</h3>"
+        }
+        var router = new VueRouter({
+            routes: [
+                {
+                    path: "/",
+                    components: {
+                        'default': header,
+                        'left': leftBox,
+                        'main': mainBox
+                    }
+                }
+                // { path: "/account/login", component: login },
+                // { path: "/account/register", component: register }
+            ]
+        })
+        // 创建Vue实例,得到 ViewModel
+        var vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {},
+            router
+        });
+    </script>
+</body>
+
+</html>

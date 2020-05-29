@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>style内联样式</title>
+    <script src="./lib/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1 :style="classObj1">{{ msg }}</h1>
+        <h1 :style="[classObj1,classObj2]">{{ msg }}</h1>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                msg: "这是一个大标题",
+                classObj1:{'color':'red','font-size':'40px'},
+                classObj2:{'font-weight':200}
+            },
+            methods: {}
+        })
+    </script>
+</body>
+
+</html>
+</html>

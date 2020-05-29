@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>创建组件</title>
+    <script src="./lib/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <mycom1></mycom1>
+        <mycom2></mycom2>
+        <mycom3></mycom3>
+        <mycom4></mycom4>
+        <count></count>
+        <hr>
+        <count></count>
+        <hr>
+        <count></count>
+        <hr>
+    </div>
+
+    <template id="temp2">
+        <div>
+            <input type="button" value="+1" @click="increment">
+            <h3>{{count}}</h3>
+        </div>
+    </template>
+
+    <template id="temp">
+        <h3>这是创建的第四个组件</h3>
+    </template>
+
+    <script>
+        var com1 = Vue.extend({
+            template: "<h3>创建组件的第一个组件</h3>"
+        })
+        Vue.component("mycom1", com1);
+
+        Vue.component("mycom2", Vue.extend({
+            template: "<h3>创建组件的第二个组件</h3>"
+        }));
+
+        Vue.component("mycom3", {
+            template: "<h3>创建组件的第三个组件</h3>"
+        });
+
+        Vue.component("mycom4", {
+            template: "#temp"
+        })
+
+        Vue.component("count", {
+            template: "#temp2",
+            data: function () {
+                return { count: 0 };
+            },
+            methods: {
+                increment() {
+                    this.count++;
+                }
+            }
+        })
+
+        //创建Vue实例,得到 ViewModel
+        var vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {}
+        });
+    </script>
+
+</body>
+
+</html>

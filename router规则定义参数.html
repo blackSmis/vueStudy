@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Router规则定义参数</title>
+    <script src="./lib/vue.js"></script>
+    <script src="./lib/vue-router.js"></script>
+    <style>
+        .v-enter,
+        .v-leave-to {
+            opacity: 0;
+            transform: translateX(80px);
+        }
+
+        .v-enter-active,
+        .v-leave-active {
+            transition: all 0.4s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <router-link to="/login?id=10&name=zs">登录</router-link>
+        <router-link to="/register/11/lisi">注册</router-link>
+        <transition mode="out-in">
+            <router-view></router-view>
+        </transition>
+    </div>
+
+    <script>
+        var login = {
+            template: "<h3>登录组件------{{$route.query.id}}------{{$route.query.name}}</h3>",
+            data() {
+                return {
+                    msg: "这是msg"
+                };
+            },
+            created() {
+                console.log(this.$route)
+            }
+        }
+        var register = {
+            template: "<h3>注册组件------{{$route.params.id}}------{{$route.params.name}}</h3>",
+            created() {
+                console.log(this.$route)
+            }
+        }
+        var router = new VueRouter({
+            routes: [
+                { path: "/", redirect: "/login" },
+                { path: "/login", component: login },
+                { path: "/register/:id/:name", component: register }
+            ]
+        })
+        // 创建Vue实例,得到 ViewModel
+        var vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {},
+            router
+        });
+    </script>
+</body>
+
+</html>

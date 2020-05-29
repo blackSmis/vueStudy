@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件切换</title>
+    <script src="./lib/vue.js"></script>
+    <style>
+        .v-enter,
+        .v-leate-to{
+            opacity: 0;
+            transform: translateX(150px);
+        }
+
+        .v-enter-active,
+        .v-leate-active{
+            transition: all 0.4s ease;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <input type="button" value="登录" @click="flag=true">
+        <input type="button" value="注册" @click="flag=false">
+        <login v-if="flag"></login>
+        <register v-else></register>
+
+        <input type="button" value="登录" @click="comName='login'">
+        <input type="button" value="注册" @click="comName='register'">
+        <transition mode="out-in">
+            <component :is="comName"></component>
+        </transition>
+    </div>
+
+    <script>
+        Vue.component("login", {
+            template: "<h2>用户登录</h2>"
+        })
+        Vue.component("register", {
+            template: "<h2>用户注册</h2>"
+        })
+
+        //创建Vue实例,得到 ViewModel
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                flag:true,
+                comName:'login'
+            },
+            methods: {}
+        });
+    </script>
+
+</body>
+
+</html>
