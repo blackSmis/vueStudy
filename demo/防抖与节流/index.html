@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>防抖与节流</title>
+    <style>
+        .content {
+            height: 100px;
+            color: white;
+            background: #333;
+            line-height: 100px;
+            font-size: 40px;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>防抖（延迟执行）</h1>
+    <div class="content"></div>
+    <h1>防抖（立即执行）</h1>
+    <div class="content"></div>
+    <h1>setTimeout节流</h1>
+    <div class="content"></div>
+    <h1>时间戳节流</h1>
+    <div class="content"></div>
+    <script>
+        var num0 = num1 = num2 = num3 = 1;
+        var content0 = document.getElementsByClassName("content")[0];
+        var content1 = document.getElementsByClassName("content")[1];
+        var content2 = document.getElementsByClassName("content")[2];
+        var content3 = document.getElementsByClassName("content")[3];
+        function count0() {
+            content0.innerText = num0++;
+        }
+        function count1() {
+            content1.innerText = num1++;
+        }
+        function count2() {
+            content2.innerText = num2++;
+        }
+        function count3() {
+            content3.innerText = num3++;
+        }
+        //防抖debounce
+        //一秒后执行数字加一函数，一直移动一直触发事件，数字一直不加(延迟执行)
+        function debounce1(func, wait) {
+            let timeout;    //定义一个空的定时器
+            return function () {
+                if (timeout) clearTimeout(timeout); //若是定时器存在，清除定时器
+                timeout = setTimeout(function () {  //定时器不存在，为定时器赋值
+                    func.apply(this);   //执行函数
+                }, wait)
+            }
+        }
+        content0.onmousemove = debounce1(count0, 1000);
+        //鼠标一覆盖就执行加一函数，需要等待一秒后才能执行加一函数(立即执行)
+        function debounce2(func, wait) {
+            let timeout;    //定义一个空的定时器
+            return function () {
+                if (timeout) clearTimeout(timeout); //若是定时器存在，清除定时器
+                let callNow = !timeout; //定时器存在就不执行函数，不存在就执行函数
+                timeout = setTimeout(function () {
+                    timeout = null;
+                }, wait)
+                if (callNow) func.apply(this);
+            }
+        }
+        content1.onmousemove = debounce2(count1, 2000);
+        // 节流 定时器 固定的时间去请求
+        // 无论怎么移动，一秒执行一次加一函数
+        function throttle(func, await) {
+            let timeout;
+            return function () {
+                if (!timeout) {
+                    timeout = setTimeout(() => {
+                        timeout = null;
+                        func.apply(this);
+                    }, await)
+                }
+            }
+        }
+        content2.onmousemove = throttle(count2, 2000);
+        // 时间戳
+        function throttle2(func, wait) {
+            let prev = 0;
+            return function () {
+                let now = Date.now();
+                if (now - prev > wait) {
+                    func.apply(this);
+                    prev = now;
+                }
+            }
+        }
+        content3.onmousemove = throttle2(count3, 2000);
+    </script>
+</body>
+
+</html>

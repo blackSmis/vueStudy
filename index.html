@@ -1,33 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>index</title>
+    <title>首页</title>
     <script src="./lib/vue.min.js"></script>
+    <style>
+        ul{
+            width: 100%;
+            float: left;
+        }
+        li {
+            list-style: none;
+            float: left;
+            width: 17%;
+            border: 1px solid #000;
+            text-align: center;
+            height: 40px;
+            line-height: 40px;
+            background-color: #ccc;
+            margin: 1%;
+        }
+
+        a {
+            text-decoration: none;
+            color: #000;
+        }
+    </style>
 </head>
+
 <body>
     <div id="app">
-        <p>{{ msg }}</p>
-        <p v-text="msg"></p>
-        <p v-html="msg">{{ msg }}</p>
-        <input type="button" value="按钮" :title="msg2" v-on:click="detail">
+        <h1 @click="detail">{{ msg }}</h1>
+        <div>
+            <h1>vueCode</h1>
+            <ul>
+                <li v-for="item in htmlArr"><a :href="item+'.html'">{{item}}</a></li>
+            </ul>
+        </div>
+        <div>
+            <h1>smallDemo</h1>
+            <ul>
+                <li v-for="item in demoArr"><a :href="'demo/'+item+'/index.html'">{{item}}</a></li>
+            </ul>
+        </div>
     </div>
 
     <script>
         var vm = new Vue({
-            el:"#app",
-            data:{
-                msg:"<h2>hello world!</h2>",
-                msg2:"这是一个按钮!"
+            el: "#app",
+            data: {
+                msg: "hello world!!!",
+                htmlArr: [
+                    "v-for循环遍历", "v-if和v-show", "class样式",
+                    "style内联样式", "v-model双向绑定", "ref获取元素DOM",
+                    "watch监视路由", "vue动画", "vue发起请求",
+                    "vue创建组件", "vue父子组件传值", "vue父子组件传值方法",
+                    "router的基本使用", "router规则定义参数",
+                    "router经典布局", "router嵌套", "vue列表动画",
+                    "vue组件切换", "计算器", "名称案例", "跑马灯",
+                    "品牌列表案例", "评论案例", "修饰符"
+                ],
+                demoArr: [
+                    "防抖与节流", "瀑布流布局", "mvvm实现", "setmap留言板"
+                ]
             },
-            methods:{
-                detail:function(){
+            methods: {
+                detail: function () {
                     alert("hello world")
                 }
             }
         })
     </script>
 </body>
+
 </html>
